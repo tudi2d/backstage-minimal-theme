@@ -7,11 +7,28 @@ metadata:
 spec:
   owner: guests
 ---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: stores
+spec:
+  owner: tudi2d
+---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: example-website
+  links:
+    - url: https://dashboard.example.com
+      title: Google Analytics
+      icon: dashboard
+    - url: https://dashboard.example.com
+      title: Confluence
+      icon: help
+    - url: https://dashboard.example.com
+      title: Slack
+      icon: chat
 spec:
   type: website
   lifecycle: experimental
