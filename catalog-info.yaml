@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: demo-app
-  description: An example of a Backstage application.
+  name: backstage-minimal
+  description: An example of a Backstage application with a minimal theme.
   # Example for optional annotations
   # annotations:
   #   github.com/project-slug: backstage/backstage

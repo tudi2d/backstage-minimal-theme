@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   svg: {
-    width: 'auto',
-    height: 28,
+    width: 60,
+    height: 30,
   },
   path: {
-    fill: '#7df3e1',
+    fill: '#6e6e6e',
   },
 });
 

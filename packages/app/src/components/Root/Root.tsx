@@ -1,90 +1,65 @@
-import React, { PropsWithChildren } from 'react';
-import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
-import LogoFull from './LogoFull';
-import LogoIcon from './LogoIcon';
 import {
-  Settings as SidebarSettings,
   UserSettingsSignInAvatar,
+  useUserProfile,
 } from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
-import {
-  Sidebar,
-  sidebarConfig,
-  SidebarDivider,
-  SidebarGroup,
-  SidebarItem,
-  SidebarPage,
-  SidebarScrollWrapper,
-  SidebarSpace,
-  useSidebarOpenState,
-  Link,
-} from '@backstage/core-components';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { PropsWithChildren } from 'react';
+import LogoIcon from './LogoIcon';
 
-const useSidebarLogoStyles = makeStyles({
-  root: {
-    width: sidebarConfig.drawerWidthClosed,
-    height: 3 * sidebarConfig.logoHeight,
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'center',
-    marginBottom: -14,
-  },
-  link: {
-    width: sidebarConfig.drawerWidthClosed,
-    marginLeft: 24,
-  },
-});
-
-const SidebarLogo = () => {
-  const classes = useSidebarLogoStyles();
-  const { isOpen } = useSidebarOpenState();
-
+const SeperateIcon = () => {
   return (
-    <div className={classes.root}>
-      <Link to="/" underline="none" className={classes.link} aria-label="Home">
-        {isOpen ? <LogoFull /> : <LogoIcon />}
-      </Link>
-    </div>
+    <svg
+      height="32"
+      shapeRendering="geometricPrecision"
+      stroke="#6e6e6e"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width="32"
+    >
+      <line x1="0" y1="0" x2="0" y2="32" />
+    </svg>
   );
 };
 
-export const Root = ({ children }: PropsWithChildren<{}>) => (
-  <SidebarPage>
-    <Sidebar>
-      <SidebarLogo />
-      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        {/* Global nav, not org-specific */}
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-        <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-        {/* End global nav */}
-        <SidebarDivider />
-        <SidebarScrollWrapper>
-          <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-        </SidebarScrollWrapper>
-      </SidebarGroup>
-      <SidebarSpace />
-      <SidebarDivider />
-      <SidebarGroup
-        label="Settings"
-        icon={<UserSettingsSignInAvatar />}
-        to="/settings"
+export const Root = ({ children }: PropsWithChildren<{}>) => {
+  const user = useUserProfile();
+
+  return (
+    <div style={{ background: 'white' }}>
+      <nav
+        style={{
+          height: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          margin: 'auto',
+          padding: '0 24px ',
+        }}
       >
-        <SidebarSettings />
-      </SidebarGroup>
-    </Sidebar>
-    {children}
-  </SidebarPage>
-);
+        <div style={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+          <div style={{ padding: '8px' }}>
+            <LogoIcon />
+          </div>
+          <div
+            style={{
+              flex: '0 0 auto',
+              display: 'flex',
+              margin: '0 16px',
+              width: '2px',
+            }}
+          >
+            <SeperateIcon />
+          </div>
+          <div style={{ padding: '8px' }}>
+            <b style={{ fontSize: '18px' }}>{user.displayName}</b>
+          </div>
+        </div>
+        <div>
+          <div>
+            <UserSettingsSignInAvatar size={30} />
+          </div>
+        </div>
+      </nav>
+      {children}
+    </div>
+  );
+};
